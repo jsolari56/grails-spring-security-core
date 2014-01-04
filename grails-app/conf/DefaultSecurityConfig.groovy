@@ -209,6 +209,9 @@ security {
 	// default to annotation mode
 	securityConfigType = SecurityConfigType.Annotation
 
+    // Strip Query String from Url before pattern matching
+    stripQueryString=true
+
 	// use Requestmap domain class to store rules in the database
 	// 	change securityConfigType to 'Requestmap'
 	requestMap {

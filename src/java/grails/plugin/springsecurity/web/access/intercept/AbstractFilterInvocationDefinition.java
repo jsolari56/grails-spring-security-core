@@ -41,6 +41,7 @@ import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.Assert;
+import org.springframework.util.PathMatcher;
 import org.springframework.util.StringUtils;
 
 /**
@@ -60,9 +61,10 @@ public abstract class AbstractFilterInvocationDefinition implements FilterInvoca
 	protected AuthenticatedVoter authenticatedVoter;
 	protected final List<InterceptedUrl> compiled = Collections.synchronizedList(new ArrayList<InterceptedUrl>());
    protected MessageSourceAccessor messages = SpringSecurityMessageSource.getAccessor();
-	protected AntPathMatcher urlMatcher = new AntPathMatcher();
+	protected PathMatcher urlMatcher = new AntPathMatcher();
 	protected boolean initialized;
 	protected boolean grails23Plus;
+    protected boolean stripQueryString = false;
 
 	protected final Logger log = LoggerFactory.getLogger(getClass());
 
@@ -208,20 +210,27 @@ public abstract class AbstractFilterInvocationDefinition implements FilterInvoca
 	}
 
 	protected String lowercaseAndStripQuerystring(final String url) {
-
-		String fixed = url.toLowerCase();
-
-		int firstQuestionMarkIndex = fixed.indexOf("?");
-		if (firstQuestionMarkIndex != -1) {
-			fixed = fixed.substring(0, firstQuestionMarkIndex);
-		}
-
-		return fixed;
+        String trimmedUrl = url;
+        if(stripQueryString){
+            int firstQuestionMarkIndex = url.indexOf("?");
+            if (firstQuestionMarkIndex != -1) {
+                trimmedUrl = url.substring(0, firstQuestionMarkIndex);
+            }
+        }
+        return trimmedUrl.toLowerCase();
 	}
 
-	protected AntPathMatcher getUrlMatcher() {
+	public PathMatcher getUrlMatcher() {
 		return urlMatcher;
 	}
+
+    public  void setUrlMatcher(PathMatcher urlMatcher) {
+        this.urlMatcher = urlMatcher;
+    }
+
+    public void setStripQueryString(boolean stripQueryString) {
+        this.stripQueryString = stripQueryString;
+    }
 
 	/**
 	 * For debugging.

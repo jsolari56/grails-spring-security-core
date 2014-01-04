@@ -413,6 +413,10 @@ to default to 'Annotation'; setting value to 'Annotation'
             objectDefinitionSource.stripQueryString = conf.stripQueryString
         }
 
+        if (conf.stripQueryString instanceof Boolean) {
+            objectDefinitionSource.stripQueryString = conf.stripQueryString
+        }
+
 		webInvocationPrivilegeEvaluator(GrailsWebInvocationPrivilegeEvaluator,
 				ref('filterInvocationInterceptor'))
 

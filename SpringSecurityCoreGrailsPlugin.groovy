@@ -363,7 +363,7 @@ class SpringSecurityCoreGrailsPlugin {
 			accessDecisionManager = ref('accessDecisionManager')
 			securityMetadataSource = ref('objectDefinitionSource')
 			runAsManager = ref('runAsManager')
-			afterInvocationManager = ref('afterInvocationManager')
+			// afterInvocationManager = ref('afterInvocationManager')
 			alwaysReauthenticate = conf.fii.alwaysReauthenticate // false
 			rejectPublicInvocations = conf.fii.rejectPublicInvocations // true
 			validateConfigAttributes = conf.fii.validateConfigAttributes // true
@@ -408,6 +408,10 @@ to default to 'Annotation'; setting value to 'Annotation'
 				}
 			}
 		}
+
+        if (conf.stripQueryString instanceof Boolean) {
+            objectDefinitionSource.stripQueryString = conf.stripQueryString
+        }
 
 		webInvocationPrivilegeEvaluator(GrailsWebInvocationPrivilegeEvaluator,
 				ref('filterInvocationInterceptor'))

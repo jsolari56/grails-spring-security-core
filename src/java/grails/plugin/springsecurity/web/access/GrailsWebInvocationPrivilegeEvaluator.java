@@ -105,8 +105,7 @@ public class GrailsWebInvocationPrivilegeEvaluator extends DefaultWebInvocationP
 	}
 
 	protected FilterInvocation createFilterInvocation(final String contextPath, final String uri, final String method) {
-		Assert.hasText(uri, "URI required");
-		return new FilterInvocation(DummyRequestCreator.createInstance(contextPath, method, contextPath + uri),
+		Assert.hasText(uri, "URI required");		return new FilterInvocation(DummyRequestCreator.createInstance(contextPath, method, uri),
 				DUMMY_RESPONSE, DUMMY_CHAIN);
 	}
 }

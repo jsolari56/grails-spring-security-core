@@ -232,14 +232,6 @@ public abstract class AbstractFilterInvocationDefinition implements FilterInvoca
         this.stripQueryString = stripQueryString;
     }
 
-    public  void setUrlMatcher(PathMatcher urlMatcher) {
-        this.urlMatcher = urlMatcher;
-    }
-
-    public void setStripQueryString(boolean stripQueryString) {
-        this.stripQueryString = stripQueryString;
-    }
-
 	/**
 	 * For debugging.
 	 * @return an unmodifiable map of {@link AnnotationFilterInvocationDefinition}ConfigAttributeDefinition

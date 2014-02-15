@@ -206,7 +206,16 @@ public abstract class AbstractFilterInvocationDefinition implements FilterInvoca
 	protected String calculateUri(final HttpServletRequest request) {
 		String url = request.getRequestURI().substring(request.getContextPath().length());
 		int semicolonIndex = url.indexOf(";");
-		return semicolonIndex == -1 ? url : url.substring(0, semicolonIndex);
+		url =  semicolonIndex == -1 ? url : url.substring(0, semicolonIndex);
+
+        String queryString = request.getQueryString();
+
+        if (!stripQueryString && queryString != null) {
+
+            url = url + "?" + queryString;
+        }
+
+        return url;
 	}
 
 	protected String lowercaseAndStripQuerystring(final String url) {
